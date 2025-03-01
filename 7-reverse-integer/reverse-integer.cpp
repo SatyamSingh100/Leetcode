@@ -8,6 +8,7 @@ public:
             ans = ans*10 + rem;
             x = x/10;
         }
+        
         return ans;
     }
 };
