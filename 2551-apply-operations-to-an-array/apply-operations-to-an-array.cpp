@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> applyOperations(vector<int>& a) {
         int n= a.size(),cnt=0;
-        vector<int> v,p(n);
+        vector<int> v;
         for(int i=0; i<n-1; i++){
             if(a[i] == a[i+1]){
                 a[i] = a[i] *2;
