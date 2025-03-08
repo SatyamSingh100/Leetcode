@@ -8,11 +8,17 @@ public:
         return cnt;
     }
     int minimumRecolors(string s, int k) {
-        int n= s.size(),ans=1e9;
-        for(int i=0; i<=n-k; i++){
-            string se = s.substr(i,k);
-            int cnt = f(se);
-            ans = min(ans,cnt);
+        int n= s.size(),ans=1e9,cnt=0;
+        int i = 0, j=0;
+        while(i<n && j<n){
+            if(s[j] == 'W') cnt++;
+            if(j-i+1 == k){
+                ans = min(ans,cnt);
+                if(ans == 0) return ans;
+                if(s[i] == 'W') cnt--;
+                i++;
+            }
+            j++;
         }
         return ans;
     }
