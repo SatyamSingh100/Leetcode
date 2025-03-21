@@ -14,8 +14,7 @@ public:
             for(auto elem: it){
                 cout<<elem<<" ";
             }
-            cout<<" ";
         }
-        cout<<endl;
+        // cout<<endl;
     }
 };
