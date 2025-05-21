@@ -5,9 +5,7 @@ public:
         while(j<n){
             if(s[i] == s[j]) j++;
             else if(s[i] != s[j]){
-                i++;
-                s[i] = s[j];
-                j++;
+                s[++i] = s[j++];
                 cnt++;
             }
         }
