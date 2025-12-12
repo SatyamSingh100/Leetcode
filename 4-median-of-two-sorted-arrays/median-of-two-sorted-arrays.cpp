@@ -42,9 +42,8 @@ public:
         a = num1; b = num2;
     }
     int n = a.size(), m = b.size();
-    int l = 0, r = min(n,m);
+    int l = 0, r = n;
     int num = (n + m)/2;
-    double ans = 0;
 
     while(l <= r){
         int mid = (l+r)/2;
@@ -56,17 +55,12 @@ public:
         if(idx2 > 0) l2 = b[idx2 - 1];
        
         if(l1 <= r2 && l2 <= r1){
-            if((m+n) & 1){
-                return min(r1,r2);
-            }
-            else {
-                ans = (max(l1,l2) + min(r1,r2))/2;
-            }
-            break;
+            if((m+n) & 1) return min(r1,r2);
+            else return (max(l1,l2) + min(r1,r2))/2;
         }
         else if(l1 > r2) r = mid - 1;
         else l = mid + 1;
     }
-    return ans;
+    return -1;
     }
 };
