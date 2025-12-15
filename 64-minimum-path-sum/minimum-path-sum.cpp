@@ -14,21 +14,28 @@ public:
         vector<vector<int>> dp(m,vector<int>(n,0));
         dp[0][0] = a[0][0];
 
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(i == 0 && j==0) dp[i][j] = a[i][j];
-                else{
-                    int right = 1e9,down=1e9;
-                if(j>0) right = a[i][j] + dp[i][j-1];
-                if(i>0) down = a[i][j] + dp[i-1][j];
-                dp[i][j] = min(right,down);
-                }
+        // for(int i=0; i<m; i++){
+        //     for(int j=0; j<n; j++){
+        //         if(i == 0 && j==0) dp[i][j] = a[i][j];
+        //         else{
+        //             int right = 1e9,down=1e9;
+        //         if(j>0) right = a[i][j] + dp[i][j-1];
+        //         if(i>0) down = a[i][j] + dp[i-1][j];
+        //         dp[i][j] = min(right,down);
+        //         }
+        //     }
+        // }
+        // return dp[m-1][n-1];
+        for(int i=1; i<m; i++) dp[i][0] = dp[i-1][0] + a[i][0];
+        for(int j=1; j<n; j++) dp[0][j] = dp[0][j-1] + a[0][j];
+
+        for(int i=1; i<m; i++){
+            for(int j=1; j<n; j++){
+                dp[i][j] = a[i][j] + min(dp[i-1][j] , dp[i][j-1]);
             }
         }
+
         return dp[m-1][n-1];
-
-
-
 
         // int ans = f(a,m-1,n-1);
         // return ans;
