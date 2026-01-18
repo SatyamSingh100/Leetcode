@@ -1,25 +1,20 @@
 class Solution {
 public:
     bool canPartition(vector<int>& a) {
-        int n = a.size(),sum=0,k=0;
-        for(int i=0; i<n; i++) sum += a[i];
+        int n = a.size(),sum=0;
+        for(int i=0; i<n;i++) sum += a[i];
         if(sum & 1) return false;
-        else{
-            k = sum/2;
-        vector<vector<bool>> dp(n,vector<bool>(k+1,0));
-        for(int i=0; i<n; i++) dp[i][0] = true;
-        if(k >= a[0]) dp[0][a[0]] = true;
-        for(int i=1; i<n; i++){
-            for(int j=1; j<=k; j++){
-                bool ntake = dp[i-1][j];
-                bool take = false;
-                if(j >= a[i]) take = dp[i-1][j-a[i]];
-
-                dp[i][j] = ntake | take;
+        int tar = sum /2;
+        vector<vector<bool>> dp(n+1,vector<bool>(tar+1,false));
+        for(int i=0; i<= n; i++) dp[i][0] = true;
+        for(int j=1; j<=tar; j++) dp[0][j] = false;
+        
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=tar; j++){
+                if(a[i-1] <= j) dp[i][j] = dp[i-1][j] | dp[i-1][j-a[i-1]];
+                else dp[i][j] = dp[i-1][j];
             }
         }
-        return dp[n-1][k];
-        }
-        return false;
+        return dp[n][tar];
     }
 };
