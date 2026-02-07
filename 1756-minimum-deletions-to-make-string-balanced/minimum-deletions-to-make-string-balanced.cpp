@@ -1,38 +1,25 @@
 class Solution {
 public:
-    int minimumDeletions(string a) {
-        int n = a.size(),idxa=0,ansa=1e9,idxb=0,ansb=1e9;
-        vector<int> pa,pb,qa,qb;
+    int minimumDeletions(string s) {
+        int n = s.size(),ans=1e9;
+        vector<int> a(n+2,0),b(n+2,0);
+        int cntb=0,cnta=0;
+        b[0] = 0;
         for(int i=0; i<n; i++){
-            if(a[i] == 'a') pa.push_back(i);
+            b[i+1] = cntb;
+            if(s[i] == 'b') cntb++;
         }
-        for(int i=0; i<pa.size(); i++){
-            int num = pa[i] - idxa;
-            qa.push_back(num);
-            idxa++;
+        b[n+1] = cntb;  a[n+1] = 0;
+        for(int i=n; i>=0; i--){
+            a[i+1] = cnta;
+            if(s[i] == 'a') cnta++;
         }
-        for(int i=qa.size()-1; i>=0; i--){
-            int num = qa[i] + (qa.size()-1) - i;
-            ansa = min(ansa,num);
+        a[0] = cnta;
+        for(int i=0; i<n+2; i++){
+            int num = a[i] + b[i];
+            ans = min(ans,num);
         }
-        if(ansa == 1e9) ansa = 0;
-
-        reverse(a.begin(),a.end());
-        for(int i=0; i<n; i++){
-            if(a[i] == 'b') pb.push_back(i);
-        }
-        for(int i=0; i<pb.size(); i++){
-            int num = pb[i] - idxb;
-            qb.push_back(num);
-            idxb++;
-        }
-        for(int i=qb.size()-1; i>=0; i--){
-            int num = qb[i] + (qb.size()-1) - i;
-            ansb = min(ansb,num);
-        }
-        if(ansb == 1e9) ansb = 0;
-        
-        int ans = min(ansa,ansb);
+        if(ans == 1e9) return 0;
         return ans;
     }
 };
