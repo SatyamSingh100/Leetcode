@@ -15,14 +15,9 @@ public:
                 int val = __builtin_popcount(b[j]);
                 if(val == num2){
                     string s ="";
-                    s += to_string(a[i]);
-                    s += ':';
-                    if(b[j] <= 9){
-                        s += '0'; s += b[j] + 48;
-                    }
-                    else{
-                        s += to_string(b[j]);
-                    }
+                    s += to_string(a[i]) + ':';
+                    if(b[j] <= 9) s += '0';
+                    s += to_string(b[j]);
                     ans.push_back(s);
                 }
                 j++;
