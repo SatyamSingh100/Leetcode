@@ -1,14 +1,19 @@
 class Solution {
 public:
-    int reverse(int x) {
-        int ans=0;
-        while(x != 0){
-            int rem = x % 10;
-            if(ans > INT_MAX/10 || ans < INT_MIN/10) return 0;
-            ans = ans*10 + rem;
-            x = x/10;
+    int reverse(int n) {
+        if(n >= pow(2,31) || n <= -pow(2,31)) return 0;
+        bool sign = true;
+        if(n < 0) sign = false;
+        long long num =0;
+        n = abs(n);
+        while(n > 0){
+            int rem = n % 10;
+            n = n /10;
+            num = (num * 10) + rem;
+            if(num >= pow(2,31)) return 0;
         }
-        
-        return ans;
+        int val = num;
+        if(sign == false) val = -val;
+        return val;
     }
 };
