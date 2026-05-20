@@ -1,7 +1,7 @@
 class Solution {
 public:
     int reverse(int n) {
-        if(n >= pow(2,31) || n <= -pow(2,31)) return 0;
+        if(n >= INT_MAX || n <= INT_MIN) return 0;
         bool sign = true;
         if(n < 0) sign = false;
         long long num =0;
