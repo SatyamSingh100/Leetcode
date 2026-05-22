@@ -3,11 +3,12 @@ public:
     void rotate(vector<int>& a, int k) {
         int n = a.size();
         k = k % n;
-        vector<int> temp(k);
-        int idx =0;
-        for(int i=n-k; i<n; i++) temp[idx++] = a[i];
-
-        for(int i=n-k-1; i>=0; i--) a[i+k] = a[i];
-        for(int i=0; i<k; i++) a[i] = temp[i];
+        if(n == 1) return;
+        vector<int> b(n-k,0);
+        for(int i=0; i<n-k; i++) b[i] = a[i];
+        for(int i=0; i<n; i++){
+            if(i < k) a[i] = a[(i+n-k)];
+            else a[i] = b[i-k]; 
+        }
     }
 };
