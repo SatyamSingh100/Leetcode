@@ -3,16 +3,22 @@ public:
     vector<int> twoSum(vector<int>& a, int k) {
         int n = a.size();
         vector<int> ans(2,-1);
-        unordered_map<int,int> m;
+        vector<pair<int,int>> v(n);
         for(int i=0; i<n; i++){
-            int num1 = a[i];
-            int num2 = k - a[i];
-            if(m.find(num2) != m.end()){
-                ans[0] = i;
-                ans[1] = m[num2];
+            v[i].first = a[i];
+            v[i].second = i;
+        }
+        int i = 0, j=n-1;
+        sort(v.begin(),v.end());
+        while(i < j){
+            int num1 = v[i].first, num2 = v[j].first;
+            int sum =  num1 + num2;
+            if(sum == k){
+                ans[0] = v[i].second; ans[1] = v[j].second;
                 return ans;
             }
-            m[num1] = i;
+            else if(sum > k) j--;
+            else i++;
         }
         return ans;
     }
