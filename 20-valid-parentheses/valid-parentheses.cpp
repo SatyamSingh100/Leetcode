@@ -1,25 +1,28 @@
 class Solution {
 public:
-    bool f(char x, char y){
-        if((x == '(' && y == ')') || (x == '[' && y == ']') || (x == '{' && y == '}')) return true;
+    bool check(char a, char b){
+        if((a == '('&& b == ')') || (a == '{' && b == '}') || (a == '[' && b == ']')){
+            return true;
+        }
         return false;
     }
     bool isValid(string s) {
+        int n = s.size(),i=0;
+        if(n == 1) return false;
         stack<char> st;
-        for(int i=0; i<s.size(); i++){
-            if(st.empty()){
-                if((s[i] == ')') || (s[i] == ']') || (s[i] == '}')) return false;
-                else st.push(s[i]);
+        while(i < n){
+            if( (s[i] == ')' || s[i] == ']' || s[i] == '}') ){
+                if(st.empty()) return false;
+                if(check(st.top(),s[i]) == false) return false;
+                else if(check(st.top(),s[i])){ st.pop(); i++; }
+                // else {st.push(s[i]); i++;}
             }
             else{
-                if((s[i] == '(') || (s[i] == '[') || (s[i] == '{')) st.push(s[i]);
-                else if(f(st.top(),s[i]) == true){
-                    st.pop();
-                }
-                else return false;
+                st.push(s[i]);
+                i++;
             }
         }
-        if(!st.empty()) return false;
+        if(st.empty() == false) return false;
         return true;
     }
 };
