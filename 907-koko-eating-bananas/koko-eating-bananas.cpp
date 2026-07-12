@@ -1,25 +1,30 @@
 class Solution {
 public:
-    bool f1(vector<int>& a, int h, int k){
-        long long ans = 0;
-        for(int i=0; i<a.size(); i++){
-            if(a[i] % k == 0) ans += a[i]/k;
-            else ans += (a[i]/k) + 1;
+    bool isValid(vector<int> a, int r, int h){
+        long long n = a.size(),sum=0,i=0;
+        while(i < n){
+            if(a[i] > r){
+                sum += a[i]/r; a[i] = a[i] % r;
+                if(a[i] == 0) i++;
+            }
+            else{
+                sum++; i++;
+            }
         }
-        if(ans <= h) return true;
-        return false;
+        if(sum > h) return false;
+        return true;
     }
     int minEatingSpeed(vector<int>& a, int h) {
-        int n = a.size();
-        int l = 1, r = *max_element(a.begin(),a.end());
-        int ans = r;
+        int l = 1,r=1,n = a.size(),ans = 0;
+        for(int i=0; i<n; i++) r = max(a[i],r);
         while(l <= r){
             int mid = (l + r)/2;
-            if(f1(a,h,mid)){
-                ans = min(ans,mid);
-                r = mid - 1;
+            if(isValid(a,mid,h)){
+                ans = mid; r = mid-1;
             }
-            else l = mid + 1;
+            else{
+                l = mid + 1;
+            }
         }
         return ans;
     }
